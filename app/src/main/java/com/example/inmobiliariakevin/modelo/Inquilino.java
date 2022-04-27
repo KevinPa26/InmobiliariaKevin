@@ -1,5 +1,7 @@
 package com.example.inmobiliariakevin.modelo;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Inquilino implements Serializable {
@@ -98,5 +100,11 @@ public class Inquilino implements Serializable {
 
     public void setTelefonoGarante(String telefonoGarante) {
         this.telefonoGarante = telefonoGarante;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getNombre() +" "+getApellido();
     }
 }

@@ -31,19 +31,23 @@
         android:id="@+id/nav_inquilinos"
         android:name="com.example.inmobiliariakevin.ui.inquilinos.InquilinosFragment"
         android:label="@string/Inquilinos"
-        tools:layout="@layout/inquilinos_fragment" />
+        tools:layout="@layout/fragment_inquilinos" />
 
     <fragment
         android:id="@+id/nav_contratos"
         android:name="com.example.inmobiliariakevin.ui.contratos.ContratosFragment"
         android:label="@string/Contratos"
-        tools:layout="@layout/contratos_fragment" />
+        tools:layout="@layout/fragment_contratos" >
+        <action
+            android:id="@+id/action_nav_contratos_to_detalleContratoFragment"
+            app:destination="@id/detalleContratoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.example.inmobiliariakevin.ui.logout.LogoutFragment"
         android:label="@string/Logout"
-        tools:layout="@layout/logout_fragment" />
+        tools:layout="@layout/fragment_logout" />
     <fragment
         android:id="@+id/inmuebleFragment"
         android:name="com.example.inmobiliariakevin.ui.inmuebles.InmuebleFragment"
@@ -52,5 +56,26 @@
         <action
             android:id="@+id/action_inmuebleFragment_to_nav_inmuebles"
             app:destination="@id/nav_inmuebles" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleContratoFragment"
+        android:name="com.example.inmobiliariakevin.ui.contratos.DetalleContratoFragment"
+        android:label="detalle_contrato_fragment"
+        tools:layout="@layout/detalle_contrato_fragment" >
+        <action
+            android:id="@+id/action_detalleContratoFragment_to_nav_contratos"
+            app:destination="@id/nav_contratos" />
+        <action
+            android:id="@+id/action_detalleContratoFragment_to_pagosFragment"
+            app:destination="@id/pagosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pagosFragment"
+        android:name="com.example.inmobiliariakevin.ui.contratos.PagosFragment"
+        android:label="pagos_fragment"
+        tools:layout="@layout/pagos_fragment" >
+        <action
+            android:id="@+id/action_pagosFragment_to_detalleContratoFragment"
+            app:destination="@id/detalleContratoFragment" />
     </fragment>
 </navigation>
