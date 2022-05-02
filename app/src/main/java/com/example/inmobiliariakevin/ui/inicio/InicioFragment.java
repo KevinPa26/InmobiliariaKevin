@@ -58,7 +58,7 @@ public class InicioFragment extends Fragment implements OnMapReadyCallback {
         CameraUpdate camUpdICT = CameraUpdateFactory.newCameraPosition(camPos);
         mapa.animateCamera(camUpdICT);
 
-        mapa.addMarker(new MarkerOptions().position(SANLUIS)).setTitle("San Luis");
+        mapa.addMarker(new MarkerOptions().position(SANLUIS)).setTitle("Inmuebles Kevin");
         mapa.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
 }
