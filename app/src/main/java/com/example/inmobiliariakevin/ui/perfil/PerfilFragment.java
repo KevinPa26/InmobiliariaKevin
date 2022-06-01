@@ -19,7 +19,7 @@ import com.example.inmobiliariakevin.modelo.Propietario;
 
 public class PerfilFragment extends Fragment {
 
-    private EditText etDni, etNombre, etApellido, etTelefono, etContraseña, etMail;
+    private EditText etDni, etNombre, etApellido, etTelefono, etContraseña, etMail, etId, etDireccion;
     private Button btEditar;
     private PerfilViewModel perfilViewModel;
 
@@ -34,12 +34,14 @@ public class PerfilFragment extends Fragment {
         perfilViewModel.getUsuario().observe(getViewLifecycleOwner(), new Observer<Propietario>() {
             @Override
             public void onChanged(Propietario propietario) {
-                etDni.setText(propietario.getDni().toString());
+                etId.setText("" +propietario.getId());
+                etDireccion.setText(propietario.getDireccion());
+                etDni.setText(propietario.getDni());
                 etApellido.setText(propietario.getApellido());
                 etNombre.setText(propietario.getNombre());
-                etTelefono.setText(propietario.getTelefono());
+                etTelefono.setText(propietario.getTel());
                 etMail.setText(propietario.getEmail());
-                etContraseña.setText(propietario.getContraseña());
+                etContraseña.setText("");
             }
         });
 
@@ -62,12 +64,14 @@ public class PerfilFragment extends Fragment {
             }
         });
 
-        perfilViewModel.traerDatos();
+        perfilViewModel.traerDatos(this.getContext());
 
         return root;
     }
 
     private void inicializarVista(View root) {
+        etId = root.findViewById(R.id.etIdPerfil);
+        etDireccion = root.findViewById(R.id.etDireccionPerfil);
         etDni = root.findViewById(R.id.etDniPerfil);
         etNombre = root.findViewById(R.id.etNombrePerfil);
         etApellido = root.findViewById(R.id.etApellidoPerfil);
@@ -80,16 +84,18 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Propietario propietario = new Propietario();
-                propietario.setDni(Long.parseLong(etDni.getText().toString()));
+                propietario.setId(Integer.parseInt(etId.getText().toString()));
+                propietario.setDireccion(etDireccion.getText().toString());
+                propietario.setDni(etDni.getText().toString());
                 propietario.setNombre(etNombre.getText().toString());
                 propietario.setApellido(etApellido.getText().toString());
-                propietario.setTelefono(etTelefono.getText().toString());
+                propietario.setTel(etTelefono.getText().toString());
                 propietario.setEmail(etMail.getText().toString());
-                propietario.setContraseña(etContraseña.getText().toString());
+                propietario.setClave(etContraseña.getText().toString());
 
                 String texto = btEditar.getText().toString();
 
-                perfilViewModel.accionBoton(texto,propietario);
+                perfilViewModel.accionBoton(texto,propietario, getContext());
             }
         });
     }

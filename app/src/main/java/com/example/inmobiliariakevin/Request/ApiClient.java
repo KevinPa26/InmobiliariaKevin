@@ -1,12 +1,132 @@
 package com.example.inmobiliariakevin.Request;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.example.inmobiliariakevin.MainActivity;
 import com.example.inmobiliariakevin.modelo.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 
 public class ApiClient {
+    private static SharedPreferences sp;
+    private static final String URLBASE = "http://192.168.0.13:5000/api/";
+    private static RetrofitService myApiInterface;
+
+    private static SharedPreferences conectarPref(Context context) {
+        if (sp == null) {
+            sp = context.getSharedPreferences("datos", 0);
+        }
+        return sp;
+    }
+
+    public void guardarToken(Context context, String token) {
+        SharedPreferences sp = conectarPref(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("token", token);
+        editor.commit();
+    }
+
+    public String leerToken(Context context) {
+        SharedPreferences sp = conectarPref(context);
+        String token = sp.getString("token", "-1");
+        return token;
+    }
+
+
+    public static RetrofitService getMyApiInterface() {
+        Gson gson = new GsonBuilder().setLenient().create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URLBASE)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        myApiInterface = retrofit.create(RetrofitService.class);
+        return myApiInterface;
+    }
+
+
+    public interface RetrofitService {
+
+        //login
+        @POST("Propietario/login")
+        Call<String> login(@Body Usuario usuario);
+
+        @GET("Propietario")
+        Call<Propietario> getPropietarioActual(@Header("Authorization") String token);
+
+        @PUT("Propietario/{id}")
+        Call<Propietario> updatePropietarioActual(@Header("Authorization") String token, @Path("id") int id, @Body Propietario propietario);
+
+        //obtener los inmuebles
+        @GET("Inmueble")
+        Call<ArrayList<Inmueble>> getInmuebles(@Header("Authorization") String token);
+
+        @GET("Contrato")
+        Call<ArrayList<Contrato>> getContratos(@Header("Authorization") String token);
+
+        @GET("Contrato/porInmueble/{id}")
+        Call<ArrayList<Contrato>> getContratosPorInmueble(@Header("Authorization") String token, @Path("id") int id);
+
+        @GET("Inquilino/porInmueble/{id}")
+        Call<ArrayList<Inquilino>> getInquilinoPorInmueble(@Header("Authorization") String token, @Path("id") int id);
+
+        @GET("Pago/porContrato/{id}")
+        Call<ArrayList<Pago>> getPagosPorContrato(@Header("Authorization") String token, @Path("id") int id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     private ArrayList<Propietario> propietarios=new ArrayList<>();
     private ArrayList<Inquilino> inquilinos=new ArrayList<>();
     private ArrayList<Inmueble> inmuebles=new ArrayList<>();
@@ -160,10 +280,7 @@ public class ApiClient {
         pagos.add(new Pago(900,1,uno,17000,"10/02/2020"));
         pagos.add(new Pago(901,2,uno,17000,"10/03/2020"));
         pagos.add(new Pago(902,3,uno,17000,"10/04/2020"));
-
-
-
-
     }
+    */
 }
 

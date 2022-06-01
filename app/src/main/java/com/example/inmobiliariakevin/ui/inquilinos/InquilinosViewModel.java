@@ -2,6 +2,7 @@ package com.example.inmobiliariakevin.ui.inquilinos;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -14,10 +15,16 @@ import com.example.inmobiliariakevin.modelo.Inmueble;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class InquilinosViewModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<Inmueble>> inmuebles;
     private Context context;
+    private ApiClient apiClient;
+    private ApiClient.RetrofitService rfs;
 
     public InquilinosViewModel(@NonNull Application application) {
         super(application);
@@ -32,6 +39,32 @@ public class InquilinosViewModel extends AndroidViewModel {
         return inmuebles;
     }
 
+    public void cargarInmueblesAlquilados(){
+        apiClient = new ApiClient();
+        rfs = ApiClient.getMyApiInterface();
+
+        Call<ArrayList<Inmueble>> dato = rfs.getInmuebles(apiClient.leerToken(context));
+        dato.enqueue(new Callback<ArrayList<Inmueble>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Inmueble>> call, Response<ArrayList<Inmueble>> response) {
+                if(response.isSuccessful()){
+                    ArrayList<Inmueble> inmu = new ArrayList<>();
+                    for (Inmueble inmueble : response.body()) {
+                        if(inmueble.getEstado() == 3){
+                            inmu.add(inmueble);
+                        }
+                    }
+                    inmuebles.setValue(inmu);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Inmueble>> call, Throwable t) {
+                Log.d("token", "Error: " + t.getMessage());
+            }
+        });
+    }
+/*
     public void cargarInmuebles() {
         //Acá traemos todos los inmuebles de la base de datos
         ApiClient api=ApiClient.getApi();
@@ -39,4 +72,6 @@ public class InquilinosViewModel extends AndroidViewModel {
         this.inmuebles.setValue(inmuebles);
 
     }
+
+ */
 }

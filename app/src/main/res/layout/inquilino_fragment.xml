@@ -17,7 +17,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Información del inmueble"
+            android:text="Información del Inquilino"
             android:textColor="#9C27B0"
             android:textSize="24dp"
             android:textStyle="bold"

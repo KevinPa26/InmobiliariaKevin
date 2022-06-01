@@ -7,55 +7,115 @@ import java.util.Objects;
 
 public class Contrato implements Serializable {
 
-    private int idContrato;
-    private String fechaInicio;
-    private String fechaFin;
-    private double montoAlquiler;
+    private int id;
+    private int inmuebleid;
+    private int inquilinoid;
+    private String fecha_inicio;
+    private String fecha_fin;
+    private double monto_mes;
+    private String garante_nombre;
+    private String garante_apellido;
+    private String garante_dni;
+    private String garante_tel;
     private Inquilino inquilino;
     private Inmueble inmueble;
 
-    public Contrato() {}
-    public Contrato(int idContrato, String fechaInicio, String fechaFin, double montoAlquiler, Inquilino inquilino, Inmueble inmueble) {
-        this.idContrato = idContrato;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.montoAlquiler = montoAlquiler;
+    public Contrato(int id, int inmuebleid, int inquilinoid, String fecha_inicio, String fecha_fin, double monto_mes, String garante_nombre, String garante_apellido, String garante_dni, String garante_tel, Inquilino inquilino, Inmueble inmueble) {
+        this.id = id;
+        this.inmuebleid = inmuebleid;
+        this.inquilinoid = inquilinoid;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.monto_mes = monto_mes;
+        this.garante_nombre = garante_nombre;
+        this.garante_apellido = garante_apellido;
+        this.garante_dni = garante_dni;
+        this.garante_tel = garante_tel;
         this.inquilino = inquilino;
         this.inmueble = inmueble;
     }
 
-    public int getIdContrato() {
-        return idContrato;
+    public Contrato() {}
+
+    public int getId() {
+        return id;
     }
 
-    public void setIdContrato(int idContrato) {
-        this.idContrato = idContrato;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getFechaInicio() {
-        return fechaInicio;
+    public int getInmuebleid() {
+        return inmuebleid;
     }
 
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setInmuebleid(int inmuebleid) {
+        this.inmuebleid = inmuebleid;
     }
 
-    public String getFechaFin() {
-        return fechaFin;
+    public int getInquilinoid() {
+        return inquilinoid;
     }
 
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setInquilinoid(int inquilinoid) {
+        this.inquilinoid = inquilinoid;
     }
 
-    public double getMontoAlquiler() {
-        return montoAlquiler;
+    public String getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setMontoAlquiler(double montoAlquiler) {
-        this.montoAlquiler = montoAlquiler;
+    public void setFecha_inicio(String fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
     }
 
+    public String getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(String fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    public double getMonto_mes() {
+        return monto_mes;
+    }
+
+    public void setMonto_mes(double monto_mes) {
+        this.monto_mes = monto_mes;
+    }
+
+    public String getGarante_nombre() {
+        return garante_nombre;
+    }
+
+    public void setGarante_nombre(String garante_nombre) {
+        this.garante_nombre = garante_nombre;
+    }
+
+    public String getGarante_apellido() {
+        return garante_apellido;
+    }
+
+    public void setGarante_apellido(String garante_apellido) {
+        this.garante_apellido = garante_apellido;
+    }
+
+    public String getGarante_dni() {
+        return garante_dni;
+    }
+
+    public void setGarante_dni(String garante_dni) {
+        this.garante_dni = garante_dni;
+    }
+
+    public String getGarante_tel() {
+        return garante_tel;
+    }
+
+    public void setGarante_tel(String garante_tel) {
+        this.garante_tel = garante_tel;
+    }
 
     public Inquilino getInquilino() {
         return inquilino;
@@ -78,11 +138,11 @@ public class Contrato implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contrato contrato = (Contrato) o;
-        return idContrato == contrato.idContrato;
+        return id == contrato.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idContrato);
+        return Objects.hash(id);
     }
 }

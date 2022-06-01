@@ -54,7 +54,7 @@ public class InquilinosFragment extends Fragment {
                 rvInquilinos.setAdapter(adapter);
             }
         });
-        inquilinosViewModel.cargarInmuebles();
+        inquilinosViewModel.cargarInmueblesAlquilados();
     }
 
 }

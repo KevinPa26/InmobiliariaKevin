@@ -62,10 +62,10 @@ public class DetalleContratoFragment extends Fragment {
         mViewModel.getContrato().observe(getActivity(), new Observer<Contrato>() {
             @Override
             public void onChanged(Contrato contrato) {
-                tvCodigoContrato.setText(contrato.getIdContrato() + "");
-                tvFechaInicio.setText(contrato.getFechaInicio());
-                tvFechaFinalizacion.setText(contrato.getFechaFin());
-                tvMontoDeAlquier.setText("$ " +contrato.getMontoAlquiler());
+                tvCodigoContrato.setText(contrato.getId() + "");
+                tvFechaInicio.setText(contrato.getFecha_inicio());
+                tvFechaFinalizacion.setText(contrato.getFecha_fin());
+                tvMontoDeAlquier.setText("$ " +contrato.getMonto_mes());
                 tvInquilinoContrato.setText(contrato.getInquilino().toString());
                 tvInmuebleContrato.setText(contrato.getInmueble().getDireccion());
             }
@@ -75,7 +75,7 @@ public class DetalleContratoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Contrato con = new Contrato();
-                con.setIdContrato(Integer.parseInt(tvCodigoContrato.getText().toString()));
+                con.setId(Integer.parseInt(tvCodigoContrato.getText().toString()));
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("contrato", con);
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main).navigate(R.id.pagosFragment, bundle);
@@ -83,7 +83,7 @@ public class DetalleContratoFragment extends Fragment {
         });
 
 
-        mViewModel.cargarInmuebleAlquilados(getArguments());
+        mViewModel.cargarContratos(getArguments());
     }
 
 }

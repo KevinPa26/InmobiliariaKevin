@@ -55,13 +55,14 @@ public class InmuebleFragment extends Fragment {
         inmuebleViewModel.getInmueble().observe(getActivity(), new Observer<Inmueble>() {
             @Override
             public void onChanged(Inmueble inmueble) {
-                tvId.setText(inmueble.getIdInmueble() + "");
+                tvId.setText("" + inmueble.getId());
                 tvDireccion.setText(inmueble.getDireccion());
-                tvTipo.setText(inmueble.getTipo());
-                tvUso.setText(inmueble.getUso());
-                tvAmbientes.setText(inmueble.getAmbientes() + "");
+                tvTipo.setText("" + inmueble.getTipo());
+                tvUso.setText(""+ inmueble.getUso());
+                tvAmbientes.setText("" +inmueble.getCant_ambiente());
                 tvPrecio.setText("$" + inmueble.getPrecio());
-                cbEstado.setChecked(inmueble.isEstado());
+                //modificar abajo para que pregunte por estado del inmueble y convertir a boolean
+                cbEstado.setChecked(true);
 
                 Glide.with(getContext())
                         .load(inmueble.getImagen())
